@@ -9,6 +9,8 @@
 *.so.*
 *.dll
 *.dylib
+debug/
+release/
 
 # Qt-es
 object_script.*.Release
@@ -50,3 +52,10 @@ compile_commands.json
 
 # QtCreator local machine specific files for imported projects
 *creator.user*
+
+# CodeLite projects
+*.project
+
+# auto-generated files
+QtFE.bat
+QtFE_resource.rc
