@@ -5,6 +5,10 @@
 #include <QCommandLineOption>
 #include <QString>
 
+#include "mainwindow.h"
+//#include <QStorageInfo>
+//#include <fstream>
+
 int main(int argc, char* argv[])
 {
 	QApplication app(argc, argv);
@@ -16,14 +20,24 @@ int main(int argc, char* argv[])
 	//QCommandLineOption aaaa=	{"aaaa",	"description"};
 	//if(parser.isSet(aaaa))) {}
 
-    QPushButton quit("Quit");
+//    QPushButton quit("Quit");
+//
+//    quit.resize(75, 30);
+//    quit.setFont(QFont("Times", 18, QFont::Bold));
+//
+//    QObject::connect(&quit, SIGNAL(clicked()), &app, SLOT(quit()));
+//
+//    quit.show();
 
-    quit.resize(75, 30);
-    quit.setFont(QFont("Times", 18, QFont::Bold));
+//	std::ofstream ofs("storages.txt");
+//	for(const auto& info: QStorageInfo::mountedVolumes())
+//	{
+//		ofs<<info.displayName().toStdString()<<std::endl;
+//	}
 
-    QObject::connect(&quit, SIGNAL(clicked()), &app, SLOT(quit()));
-
-    quit.show();
+	QtFE::MainWindow* const window=new QtFE::MainWindow(nullptr);
+	window->setup(QtFE::MainWindow::ViewLayout::WITHOUT_TABS);
+	window->show();
 
     return app.exec();
 }
