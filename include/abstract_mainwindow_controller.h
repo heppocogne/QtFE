@@ -5,10 +5,11 @@
 	#include <QListView>
 	#include <QTreeView>
 	#include <QFileSystemModel>
-	#include <QDirModel>
 	#include <QMainWindow>
 	#include <QMenu>
 	#include <QString>
+	
+	#include "foldermodel.h"
 
 	namespace QtFE
 	{
@@ -19,16 +20,17 @@
 			QMenu* const folderMenu;
 			
 		protected slots:
-			void selectFolder(const QModelIndex &index);
-		
+			void selectFolder(const QModelIndex& index);
+			void expandFolder(const QModelIndex& index);
+			
 		public:
 			AbstractMainWindowController(QObject* parent);
 			virtual ~AbstractMainWindowController();
 			virtual void setup()=0;
 			virtual QTreeView* currentTreeView(void)const=0;
 			virtual QListView* currentListView(void)const=0;
-			QDirModel* currentDirModel()const;
-			QFileSystemModel* currentFileSystemModel()const;
+			FolderModel* currentFolderModel(void)const;
+			QFileSystemModel* currentFileSystemModel(void)const;
 		};
 	};
 

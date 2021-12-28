@@ -18,16 +18,22 @@ AbstractMainWindowController::~AbstractMainWindowController()
 
 void AbstractMainWindowController::selectFolder(const QModelIndex &index)
 {
-	const QString path=currentDirModel()->fileInfo(index).absoluteFilePath();
+	const QString path=currentFolderModel()->itemFromIndex(index)->accessibleDescription();
 	currentListView()->setRootIndex(currentFileSystemModel()->setRootPath(path));
 }
 
 
-QDirModel* AbstractMainWindowController::currentDirModel()const
+void AbstractMainWindowController::expandFolder(const QModelIndex& index)
 {
-	return dynamic_cast<QDirModel*>(currentTreeView()->model());
+	auto* const item=currentFolderModel()->itemFromIndex(index);
+	dynamic_cast<FolderModel*>(currentFolderModel())->appendExistingChildren(item, 1);
 }
 
+
+FolderModel* AbstractMainWindowController::currentFolderModel()const
+{
+	return dynamic_cast<FolderModel*>(currentTreeView()->model());
+}
 
 QFileSystemModel* AbstractMainWindowController::currentFileSystemModel()const
 {
