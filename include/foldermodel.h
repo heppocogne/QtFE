@@ -2,29 +2,25 @@
 	#define FOLDERMODEL_H
 	
 	#include <Qt>
-	//#include <QAbstractItemModel>
-	#include <QModelIndex>
-	#include <QVariant>
-	#include <QStorageInfo>
-	#include <QFileInfo>
 	#include <QDir>
-	#include <QIcon>
-	#include <QFileIconProvider>
-	#include <QString>
 	#include <QStandardItemModel>
-	#include <QStandardItem>
-	//#include <vector>
 	#include <fstream>
-	//#include <QJsonObject>
-	//#include <QJsonDocument>
+	
+	class QStandardItem;
+	class QIcon;
+	class QString;
+	class QModelIndex;
+	class QStringList;
+	class QFileIconProvider;
+	class QObject;
 	
 	namespace QtFE
 	{
 		class FolderModel: public QStandardItemModel
 		{
 			Q_OBJECT
-			QFileIconProvider iconProvider;
-			QStringList childrenChecked;
+			QFileIconProvider* const iconProvider;
+			QStringList& childrenChecked;
 			//std::vector<QString> childrenChecked;
 			void appendExistingChildrenRecursive(QStandardItem* item, int  recurse,
 															QDir::Filters filters=QDir::AllDirs|QDir::NoDotAndDotDot|QDir::Dirs|QDir::Drives|QDir::CaseSensitive, 
@@ -48,10 +44,10 @@
 			//QJsonObject serialize(void);
 		
 		signals:
-			void itemUpdated(const QModelIndex &index)const;
+			void itemUpdated(const QModelIndex& index)const;
 		};
 	};
 	
-	QJsonObject serializeItem(const QStandardItem* item);
+	//QJsonObject serializeItem(const QStandardItem* item);
 	
 #endif

@@ -13,7 +13,7 @@
 			QListView* currentFileList;
 			
 		public:
-			MainWindowController_without_tabs(QObject* parent);
+			MainWindowController_without_tabs(QObject* parent=nullptr);
 			virtual ~MainWindowController_without_tabs();
 			 
 			virtual void setup();

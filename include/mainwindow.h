@@ -2,7 +2,8 @@
 	#define MAINWINDOW_H
 	
 	#include <QMainWindow>
-	#include <QWidget>
+	//#include <QWidget>
+	class QWidget;
 	
 	#include "abstract_mainwindow_controller.h"
 	

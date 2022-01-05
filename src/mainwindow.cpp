@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "mainwindow_controller_without_tabs.h"
 
+#include <QWidget>
+
 using namespace QtFE;
 
 MainWindow::MainWindow(QWidget *parent, ViewLayout _viewLayout)

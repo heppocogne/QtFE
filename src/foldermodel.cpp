@@ -1,10 +1,22 @@
 #include "foldermodel.h"
 
+#include <QModelIndex>
+#include <QFileInfo>
+#include <QIcon>
+#include <QFileIconProvider>
+#include <QStringList>
+#include <QStandardItem>
+
+#include <memory>
+
+
 using namespace QtFE;
 
 
 FolderModel::FolderModel(QObject* parent)
 	:QStandardItemModel(parent),
+	iconProvider(new QFileIconProvider()),
+	childrenChecked(*(new QStringList())),
 	logfile("C:/Users/usk10/git/QtWorkspace/QtFE/debug/QtFE.log"),
 	rootItem(invisibleRootItem())
 {
@@ -14,7 +26,8 @@ FolderModel::FolderModel(QObject* parent)
 
 FolderModel::~FolderModel()
 {
-	
+	delete iconProvider;
+	delete std::addressof(childrenChecked);
 }
 
 
@@ -29,14 +42,14 @@ void FolderModel::appendExistingChildrenRecursive(QStandardItem* item, int  recu
 	}
 	
 	const QFileInfoList subFolders=QDir(description).entryInfoList(filters, sort);
-	for(int r=0; r< subFolders.size(); r++)
+	for(int r=0; r<subFolders.size(); r++)
 	{
 		const auto& subFolder=subFolders[r];
 		const auto& dir=subFolder.filePath();
 		
 		if(!checked)
 		{
-			QStandardItem* const child=new QStandardItem(iconProvider.icon(dir), subFolder.fileName());
+			QStandardItem* const child=new QStandardItem(iconProvider->icon(dir), subFolder.fileName());
 			child->setAccessibleDescription(dir);
 			item->appendRow(child);
 		}
@@ -71,6 +84,8 @@ QJsonObject serializeItem(const QStandardItem* item)
 
 #include <string>
 #endif
+
+
 void FolderModel::appendExistingChildren(QStandardItem* item, int  recurse, QDir::Filters filters, QDir::SortFlags sort)
 {
 	appendExistingChildrenRecursive(item, recurse, filters, sort);
@@ -80,7 +95,7 @@ void FolderModel::appendExistingChildren(QStandardItem* item, int  recurse, QDir
 
 QStandardItem* FolderModel::appendFolderItem(QStandardItem* parentItem, const QDir& folderPath, const QString& text)
 {
-	return appendFolderItem(parentItem, folderPath, iconProvider.icon(folderPath.absolutePath()), text);
+	return appendFolderItem(parentItem, folderPath, iconProvider->icon(folderPath.absolutePath()), text);
 }
 
 QStandardItem* FolderModel::appendFolderItem(QStandardItem* parentItem, const QDir& folderPath, const QIcon& icon, const QString& text)
@@ -96,7 +111,7 @@ QStandardItem* FolderModel::appendFolderItem(QStandardItem* parentItem, const QD
 
 void FolderModel::appendFolderEntry(const QDir& folderPath, const QString& text)
 {
-	appendFolderEntry(folderPath, iconProvider.icon(folderPath.absolutePath()), text);
+	appendFolderEntry(folderPath, iconProvider->icon(folderPath.absolutePath()), text);
 }
 
 void FolderModel::appendFolderEntry(const QDir& folderPath, const QIcon& icon, const QString& text)
