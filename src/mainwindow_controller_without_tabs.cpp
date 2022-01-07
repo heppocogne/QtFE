@@ -1,25 +1,58 @@
 #include "mainwindow_controller_without_tabs.h"
 #include "ui_mainwindow_without_tabs.h"
 
-//#include <QListView>
-//#include <QTreeView>
-#include <QFileSystemModel>
 #include <QMainWindow>
 #include <QMenu>
 #include <QString>
 #include <QDir>
-#include <QListWidget>
-#include <QTreeWidget>
+#include <QFileIconProvider>
+//#include <QListWidget>
+//#include <QTreeWidget>
 
-#include "foldermodel.h"
-#include "filelistmodel.h"
+//#include "foldertree_model.h"
+//#include "filelist_model.h"
+
+#include "foldertree_folder.h"
+#include "foldertree_entry.h"
+#include "foldertree_controller.h"
+
 
 using namespace QtFE;
 
-MainWindowController_without_tabs::MainWindowController_without_tabs(QObject* parent)
+MainWindowController_without_tabs::MainWindowController_without_tabs(QWidget* parent)
 	:AbstractMainWindowController(parent)
 {
+	Ui::MainWindow_without_tabs ui;
+	ui.setupUi(dynamic_cast<QMainWindow*>(parent));
 	
+	fileList=ui.fileList;
+	folderTree=ui.folderTree;
+	
+	folderTree->setHeaderHidden(true);
+	treeController=new FolderTreeController(folderTree);
+	
+	AbstractFolderTreeItem* const oneDrive=new FolderTreeFolder(folderTree, "C:/Users/usk10/OneDrive", tr("OneDrive - Personal"));
+	AbstractFolderTreeItem* const pc=new FolderTreeEntry(folderTree, "PC", AbstractFolderTreeItem::iconProvider->icon(QFileIconProvider::Computer));
+	//AbstractFolderTreeItem* const 
+	new FolderTreeFolder(pc, "C:/Users/usk10/3D Objects",	tr("3D Objects"));
+	new FolderTreeFolder(pc, "C:/Users/usk10/Downloads",	tr("Downloads"));
+	new FolderTreeFolder(pc, "C:/Users/usk10/Desktop",			tr("Desktop"));
+	new FolderTreeFolder(pc, "C:/Users/usk10/Documents",	tr("Documents"));
+	new FolderTreeFolder(pc, "C:/Users/usk10/Pictures",			tr("Pictures"));
+	new FolderTreeFolder(pc, "C:/Users/usk10/Videos",			tr("Videos"));
+	new FolderTreeFolder(pc, "C:/Users/usk10/Music", 			tr("Music"));
+	new FolderTreeFolder(folderTree, "C:/",								"Windows (C:)");
+	new FolderTreeFolder(folderTree, "D:/",								"Lenovo (D:)");
+	new FolderTreeFolder(folderTree, "G:/",								"Google Drive (G:)");
+	
+	//connect(ui.folderTree, &QTreeView::clicked, this, &MainWindowController_without_tabs::selectFolder);
+	//connect(ui.folderTree, &QTreeView::expanded, this, &MainWindowController_without_tabs::expandFolder);
+	
+	//folderTree->addTopLevelItem(oneDrive);
+	//filderTree->addToplevelItem();
+	
+	connect(folderTree, &QTreeWidget::itemExpanded, treeController, &FolderTreeController::onExpandItem);
+	treeController->updateEntries();
 }
 
 
@@ -29,6 +62,25 @@ MainWindowController_without_tabs::~MainWindowController_without_tabs()
 }
 
 
+void MainWindowController_without_tabs::switchTab(int new_tab)
+{
+	
+}
+
+
+QTreeWidget* MainWindowController_without_tabs::currentFolderTree(void)const
+{
+	return folderTree;
+}
+
+
+QListWidget* MainWindowController_without_tabs::currentFileList(void)const
+{
+	return fileList;
+}
+
+
+#if 0
 void MainWindowController_without_tabs::setup()
 {
 	Ui::MainWindow_without_tabs ui;
@@ -96,3 +148,4 @@ QListView* MainWindowController_without_tabs::currentListView(void)const
 {
 	return currentFileList;
 }
+#endif

@@ -1,3 +1,4 @@
+#if 0
 #include "filelistmodel.h"
 
 #include <QStandardItem>
@@ -37,3 +38,4 @@ QModelIndex FileListModel::setRootPath(const QString& path)
 	}
 	return rootPathItem->index();
 }
+#endif

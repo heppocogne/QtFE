@@ -27,7 +27,7 @@ void MainWindow::setup(ViewLayout newViewLayout)
 	{
 		case ViewLayout::WITHOUT_TABS:
 			controller=new MainWindowController_without_tabs(this);
-			controller->setup();
+			//controller->setup();
 			break;
 		case ViewLayout::SHARED_TREE:
 			break;
