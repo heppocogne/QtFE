@@ -33,7 +33,8 @@ MainWindowController_without_tabs::MainWindowController_without_tabs(QWidget* pa
 	
 	AbstractFolderTreeItem* const oneDrive=new FolderTreeFolder(folderTree, "C:/Users/usk10/OneDrive", tr("OneDrive - Personal"));
 	AbstractFolderTreeItem* const pc=new FolderTreeEntry(folderTree, "PC", AbstractFolderTreeItem::iconProvider->icon(QFileIconProvider::Computer));
-	//AbstractFolderTreeItem* const 
+	
+	//These should be written in json or something like that
 	new FolderTreeFolder(pc, "C:/Users/usk10/3D Objects",	tr("3D Objects"));
 	new FolderTreeFolder(pc, "C:/Users/usk10/Downloads",	tr("Downloads"));
 	new FolderTreeFolder(pc, "C:/Users/usk10/Desktop",			tr("Desktop"));
@@ -135,17 +136,5 @@ void MainWindowController_without_tabs::setup()
 	connect(ui.folderTree, &QTreeView::expanded, this, &MainWindowController_without_tabs::expandFolder);
 	//connect(dmodel, &QStandardItemModel::itemChanged, );
 	//connect(dmodel, &FolderModel::itemUpdated, ui.folderTree, QOverload<const QModelIndex&>::of(&QAbstractItemView::update));
-}
-
-
-QTreeView* MainWindowController_without_tabs::currentTreeView(void)const
-{
-	return currentFolderTree;
-}
-
-
-QListView* MainWindowController_without_tabs::currentListView(void)const
-{
-	return currentFileList;
 }
 #endif

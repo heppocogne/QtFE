@@ -5,6 +5,7 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QString>
+#include <QList>
 
 
 using namespace QtFE;
@@ -47,9 +48,15 @@ void FolderTreeFolder::refreshChildren(void)
 	
 	QDir this_dir(getPath());
 	const auto childFolders=this_dir.entryInfoList(QDir::NoDotAndDotDot|QDir::Dirs|QDir::Drives, QDir::Name|QDir::IgnoreCase);
+	
+	QList<QTreeWidgetItem*> items;
 	for(const auto& folder: childFolders)
 	{
+		/*
 		QtFE::AbstractFolderTreeItem* const item=new FolderTreeFolder(this, folder.absoluteFilePath());
 		addChild(item);
+		*/
+		items.append(new FolderTreeFolder(this, folder.absoluteFilePath()));
 	}
+	addChildren(items);
 }
