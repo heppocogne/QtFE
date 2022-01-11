@@ -4,11 +4,12 @@
 	#include "abstract_mainwindow_controller.h"
 	
 	class QTreeWidget;
-	class QListWidget;
+	class QTableWidget;
 	
 	namespace QtFE
 	{
 		class FolderTreeController;
+		class FileListController;
 		
 		class MainWindowController_without_tabs: public  AbstractMainWindowController
 		{
@@ -16,14 +17,16 @@
 			
 			QTreeWidget* folderTree;
 			FolderTreeController* treeController;
-			QListWidget* fileList;
+			QTableWidget* fileList;
+			FileListController* listController;
+			
 		public:
 			MainWindowController_without_tabs(QWidget* parent=nullptr);
 			virtual ~MainWindowController_without_tabs();
 			void switchTab(int new_tab);
 			//virtual void setup();
 			QTreeWidget* currentFolderTree(void)const;
-			QListWidget* currentFileList(void)const;
+			QTableWidget* currentFileList(void)const;
 		};
 	};
 	

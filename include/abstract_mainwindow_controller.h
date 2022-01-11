@@ -4,11 +4,10 @@
 	#include <QObject>
 	
 	class QWidget;
-	class QListWidget;
+	class QTableWidget;
 	//class QMenu;
 	class QTreeWidget;
-	//class QFileSystemModel;
-	//class QModelIndex;
+	
 
 	namespace QtFE
 	{
@@ -31,7 +30,7 @@
 			virtual ~AbstractMainWindowController();
 			
 			virtual QTreeWidget* currentFolderTree(void)const=0;
-			virtual QListWidget* currentFileList(void)const=0;
+			virtual QTableWidget* currentFileList(void)const=0;
 		
 		public slots:
 			virtual void switchTab(int new_tab)=0;

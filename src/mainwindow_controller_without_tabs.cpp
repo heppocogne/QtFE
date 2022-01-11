@@ -6,15 +6,14 @@
 #include <QString>
 #include <QDir>
 #include <QFileIconProvider>
-//#include <QListWidget>
-//#include <QTreeWidget>
+#include <QTreeWidget>
+#include <QTableWidget>
 
-//#include "foldertree_model.h"
-//#include "filelist_model.h"
 
 #include "foldertree_folder.h"
 #include "foldertree_entry.h"
 #include "foldertree_controller.h"
+#include "filelist_controller.h"
 
 
 using namespace QtFE;
@@ -54,6 +53,10 @@ MainWindowController_without_tabs::MainWindowController_without_tabs(QWidget* pa
 	
 	connect(folderTree, &QTreeWidget::itemExpanded, treeController, &FolderTreeController::onExpandItem);
 	treeController->updateEntries();
+	
+	listController=new FileListController(fileList);
+	connect(folderTree, &QTreeWidget::itemClicked, listController, &FileListController::setRootTreeItem);
+	//listController->setTreeRootItem(nullptr);
 }
 
 
@@ -75,7 +78,7 @@ QTreeWidget* MainWindowController_without_tabs::currentFolderTree(void)const
 }
 
 
-QListWidget* MainWindowController_without_tabs::currentFileList(void)const
+QTableWidget* MainWindowController_without_tabs::currentFileList(void)const
 {
 	return fileList;
 }

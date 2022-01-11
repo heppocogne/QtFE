@@ -17,6 +17,7 @@ include/foldertree_controller.h \
 include/abstract_foldertree_item.h \
 include/foldertree_folder.h \
 include/foldertree_entry.h \
+include/filelist_controller.h \
 
 
 SOURCES += \
@@ -28,6 +29,7 @@ src/foldertree_controller.cpp \
 src/abstract_foldertree_item.cpp \
 src/foldertree_folder.cpp \
 src/foldertree_entry.cpp \
+src/filelist_controller.cpp \
 
 
 #RESOURCES = rc/reosurce.qrc

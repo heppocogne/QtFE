@@ -9,6 +9,8 @@
 //#include <QStorageInfo>
 //#include <fstream>
 
+#include <Shldisp.h>
+
 int main(int argc, char* argv[])
 {
 	QApplication app(argc, argv);
@@ -37,6 +39,16 @@ int main(int argc, char* argv[])
 
 	QtFE::MainWindow* const window=new QtFE::MainWindow(nullptr);
 	window->setup(QtFE::MainWindow::ViewLayout::WITHOUT_TABS);
+	/*
+	SHELLEXECUTEINFO seinfo = {0};
+	seinfo.cbSize = sizeof(seinfo);
+	seinfo.lpFile = L"C:\\Users\\usk10\\git\\QtWorkspace\\QtFE\\src\\test\\test.cpp";
+	seinfo.nShow = SW_SHOW;
+	seinfo.fMask = SEE_MASK_INVOKEIDLIST|SEE_MASK_NOCLOSEPROCESS;
+	seinfo.lpVerb = L"properties";
+	seinfo.hwnd=reinterpret_cast<HWND>(window->winId());
+	ShellExecuteEx(&seinfo);
+	*/
 	window->show();
 
     return app.exec();

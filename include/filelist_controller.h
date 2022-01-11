@@ -3,9 +3,11 @@
 	
 	#include <QObject>
 	
-	class QListWidgetItem;
-	class QListWidget;
+	class QTableWidgetItem;
+	class QTableWidget;
+	class QTreeWidgetItem;
 	class QString;
+	class QFileIconProvider;
 	
 	namespace QtFE
 	{
@@ -15,20 +17,27 @@
 		{
 			Q_OBJECT
 			
-			QListWidget* const list;
+			QTableWidget* const list;
+			static QFileIconProvider* const iconProvider;
 			
-			QListWidgetItem* addItem(const QString& path, const QString& text="");
+			QList<QTableWidgetItem*> addItem(const QString& path, const QString& text="");
+			void setRootItem(AbstractFolderTreeItem* const item);
 			
+			int nameColumn;
+			int lastModifiedColumn;
+			int filetypeColumn;
+			int sizeColumn;
+		
 		public:
-			FileListController(QListWidget* parent=nullptr);
+			FileListController(QTableWidget* parent=nullptr);
 			~FileListController();
 			
 		public slots:
 			void setRootPath(const QString& path);
-			void setRootItem(AbstractFolderTreeItem* const item);
-			void setRootItem(QListWidgetItem* const item);
-			void selectItem(QListWidgetItem* const item);
-			void openItem(QListWidgetItem* const item);
+			void setRootTreeItem(QTreeWidgetItem* const item, int dummy=0);
+			void setRootListItem(QTableWidgetItem* const item);
+			void selectItem(QTableWidgetItem* const item);
+			void openItem(QTableWidgetItem* const item);
 		};
 	};
 	
